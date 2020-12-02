@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Database1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Color">
+    <Key>
+      <PropertyRef Name="IdColor" />
+    </Key>
+    <Property Name="IdColor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Descripcion" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Marca">
+    <Key>
+      <PropertyRef Name="IdMarca" />
+    </Key>
+    <Property Name="IdMarca" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Descripcion" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Producto">
+    <Key>
+      <PropertyRef Name="IdProducto" />
+    </Key>
+    <Property Name="IdProducto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Tipo" Type="varchar" MaxLength="50" />
+    <Property Name="Codigo" Type="varchar" MaxLength="50" />
+    <Property Name="Precio" Type="float" />
+    <Property Name="idColor" Type="int" />
+    <Property Name="idTalle" Type="int" />
+    <Property Name="idMarca" Type="int" />
+  </EntityType>
+  <EntityType Name="Stock">
+    <Key>
+      <PropertyRef Name="IdStock" />
+    </Key>
+    <Property Name="IdStock" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="cantidad" Type="int" />
+    <Property Name="idProducto" Type="int" />
+  </EntityType>
+  <EntityType Name="Talle">
+    <Key>
+      <PropertyRef Name="IdTalle" />
+    </Key>
+    <Property Name="IdTalle" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Descripcion" Type="nchar" MaxLength="10" />
+  </EntityType>
+  <Association Name="FK__Producto__idColo__2F10007B">
+    <End Role="Color" Type="Self.Color" Multiplicity="0..1" />
+    <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Color">
+        <PropertyRef Name="IdColor" />
+      </Principal>
+      <Dependent Role="Producto">
+        <PropertyRef Name="idColor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Producto__idMarc__36B12243">
+    <End Role="Marca" Type="Self.Marca" Multiplicity="0..1" />
+    <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Marca">
+        <PropertyRef Name="IdMarca" />
+      </Principal>
+      <Dependent Role="Producto">
+        <PropertyRef Name="idMarca" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Producto__idTall__300424B4">
+    <End Role="Talle" Type="Self.Talle" Multiplicity="0..1" />
+    <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Talle">
+        <PropertyRef Name="IdTalle" />
+      </Principal>
+      <Dependent Role="Producto">
+        <PropertyRef Name="idTalle" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Stock__idProduct__37A5467C">
+    <End Role="Producto" Type="Self.Producto" Multiplicity="0..1" />
+    <End Role="Stock" Type="Self.Stock" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Producto">
+        <PropertyRef Name="IdProducto" />
+      </Principal>
+      <Dependent Role="Stock">
+        <PropertyRef Name="idProducto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Database1ModelStoreContainer">
+    <EntitySet Name="Color" EntityType="Self.Color" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Marca" EntityType="Self.Marca" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Producto" EntityType="Self.Producto" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Stock" EntityType="Self.Stock" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Talle" EntityType="Self.Talle" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Producto__idColo__2F10007B" Association="Self.FK__Producto__idColo__2F10007B">
+      <End Role="Color" EntitySet="Color" />
+      <End Role="Producto" EntitySet="Producto" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Producto__idMarc__36B12243" Association="Self.FK__Producto__idMarc__36B12243">
+      <End Role="Marca" EntitySet="Marca" />
+      <End Role="Producto" EntitySet="Producto" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Producto__idTall__300424B4" Association="Self.FK__Producto__idTall__300424B4">
+      <End Role="Talle" EntitySet="Talle" />
+      <End Role="Producto" EntitySet="Producto" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Stock__idProduct__37A5467C" Association="Self.FK__Stock__idProduct__37A5467C">
+      <End Role="Producto" EntitySet="Producto" />
+      <End Role="Stock" EntitySet="Stock" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
